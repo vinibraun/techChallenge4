@@ -32,8 +32,13 @@ class FaceRecognition:
 
 
 class ActivityRecognition:
-    def __init__(self):
-        self.pose = mp.solutions.pose.Pose(min_detection_confidence=0.2, min_tracking_confidence=0.2)
+    def __init__(self, detection_confidence=0.3, tracking_confidence=0.3, model_complexity=1):
+        # Inicializa o módulo de pose com hiperparâmetros customizáveis
+        self.pose = mp.solutions.pose.Pose(
+            min_detection_confidence=detection_confidence,
+            min_tracking_confidence=tracking_confidence,
+            model_complexity=model_complexity
+        )
         self.mp_drawing = mp.solutions.drawing_utils
         self.mp_pose = mp.solutions.pose
 
@@ -76,17 +81,11 @@ class ActivityRecognition:
             if right_wrist.y < shoulder_height:
                 return "Mao D. Levantada"
 
-            # Lógica para determinar se a pessoa está escrevendo
-            elbow_height = (landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_ELBOW].y +
-                            landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_ELBOW].y) / 2
-            if elbow_height < shoulder_height and (left_wrist.y < elbow_height or right_wrist.y < elbow_height):
-                return "Escrevendo"
-
             # Lógica para determinar se a pessoa está deitada
             if abs(nose.y - shoulder_height) < 0.05:  # Define um limite para considerar os ombros e cabeça na mesma altura
                 return "Deitado"
 
-        return "Inativo"
+        return "Mov. Anomalo"
 
 
 def summarize_activities(activities):

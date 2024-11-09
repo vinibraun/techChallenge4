@@ -1,0 +1,5 @@
+Total de frames: 68
+Resumo das Atividades Detectadas:
+Mov. Anomalo: 1
+
+A expressão que mais ocorreu foi: neutral (81 vezes)
