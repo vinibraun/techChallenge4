@@ -6,7 +6,7 @@ Este projeto realiza **reconhecimento facial** e **detecção de atividades** a 
 
 - **Detecção de rostos**: Detecta rostos no vídeo e desenha uma caixa delimitadora ao redor de cada rosto identificado.
 - **Análise de expressões faciais**: Analisa expressões como "feliz", "triste", etc., e contabiliza a frequência de cada uma ao longo do vídeo.
-- **Reconhecimento de atividades motoras**: Detecta atividades físicas, como "sentado", "deitado" e "pulando".
+- **Reconhecimento de atividades motoras**: Detecta atividades físicas, como "sentado", "deitado", "levantando a mão".
 - **Resumo de atividades**: Armazena um resumo com a contagem de cada expressão e atividade detectada.
 - **Geração de relatório**: Salva um relatório em `resumo_atividades.txt`, detalhando:
   - Total de frames processados
@@ -38,3 +38,9 @@ Durante o desenvolvimento deste projeto, algumas dificuldades surgiram:
 - **Integração das Bibliotecas**: Combinar MediaPipe e DeepFace apresentou dificuldades de compatibilidade e integração, exigindo ajustes no código para garantir que as funções de ambas as bibliotecas trabalhassem de forma coordenada.
 
 - **Processamento em Tempo Real**: Exibir o reconhecimento em tempo real e manter a taxa de atualização dos frames exigiu otimizações, como o redimensionamento do frame e a redução da complexidade de alguns cálculos.
+
+  ## Implementações Futuras
+
+  - **Mais lógicas de deteção de ações**
+  - **Tentar manipular melhor os poucos hiperparâmetros possíveis de serem modificados**
+  - **Estruturar melhor os arquivos, talvez passar o resumo das ações para um txt ao invés de exibir o resumo no console, tirar prints ao decorrer do vídeo, etc**
