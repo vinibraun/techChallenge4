@@ -43,4 +43,4 @@ Durante o desenvolvimento deste projeto, algumas dificuldades surgiram:
 
   - **Mais lógicas de deteção de ações**
   - **Tentar manipular melhor os poucos hiperparâmetros possíveis de serem modificados**
-  - **Estruturar melhor os arquivos, talvez passar o resumo das ações para um txt ao invés de exibir o resumo no console, tirar prints ao decorrer do vídeo, etc**
+  - **Estruturar melhor os arquivos e manipulá-los, tirar prints ao decorrer do vídeo**
