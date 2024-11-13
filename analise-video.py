@@ -1,6 +1,6 @@
 import cv2
+import json
 from utils import FaceRecognition, ActivityRecognition, summarize_activities
-
 
 def main():
     # Inicializa o reconhecimento facial e de atividades
@@ -64,19 +64,10 @@ def main():
         y_offset = 30
         for activity_name, count in activity_summary.items():
             text = f"{activity_name}: {count}"
-
-            # Se a atividade é a atual, ela vai aparecer em vermelho escuro
-            if activity_name == last_activity:  # Aqui você pode usar a variável `last_activity`
-                # Cor vermelha escura (BGR: (0, 0, 139))
-                color = (0, 0, 139)
-            else:
-                # Cor padrão (azul)
-                color = (255, 0, 0)
-
-            # Coloca o texto na tela
+            color = (0, 0, 139) if activity_name == last_activity else (255, 0, 0)
             cv2.putText(frame, text, (10, y_offset),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
-            y_offset += 20  # Move a posição vertical para a próxima linha
+            y_offset += 20
 
         # Exibe o frame com detecções e resumo
         cv2.imshow('Face and Activity Recognition', frame)
@@ -88,9 +79,15 @@ def main():
     # Exibe o resumo final no console após o término do vídeo
     print(f"Resumo Final das Atividades (Total de frames: {frame_count}):", activity_summary)
 
+    # Grava o resumo em um arquivo JSON
+    with open("activity_summary.json", "w") as json_file:
+        json.dump({
+            "frame_count": frame_count,
+            "activity_summary": activity_summary
+        }, json_file, ensure_ascii=False, indent=4)  # indent=4 para melhor formatação
+
     cap.release()
     cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
     main()

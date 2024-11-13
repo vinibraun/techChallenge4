@@ -3,6 +3,16 @@ import mediapipe as mp
 import numpy as np
 from deepface import DeepFace
 
+# Dicionário de tradução de emoções do DeepFace
+emotion_translation = {
+    "happy": "Feliz",
+    "sad": "Triste",
+    "angry": "Bravo",
+    "surprise": "Surpreso",
+    "fear": "Medo",
+    "disgust": "Nojo",
+    "neutral": "Neutro"
+}
 
 class FaceRecognition:
     def __init__(self):
@@ -25,9 +35,12 @@ class FaceRecognition:
         face_image = frame[y:y + h, x:x + w]
         try:
             result = DeepFace.analyze(face_image, actions=['emotion'], enforce_detection=False, detector_backend='opencv')
-            return result[0]['dominant_emotion']
+            english_emotion = result[0]['dominant_emotion']
+            # Traduz a emoção para português usando o dicionário
+            translated_emotion = emotion_translation.get(english_emotion, "E. Desconhecida")
+            return translated_emotion
         except Exception as e:
-            print(f"Erro na análise de expressao: {e}")
+            print(f"Erro na análise de expressão: {e}")
             return "E. Desconhecida"
 
 
