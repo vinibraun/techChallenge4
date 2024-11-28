@@ -102,39 +102,53 @@ class ActivityRecognition:
     def categorize_activity(self, landmarks):
         """
         Classifica a atividade corporal com base em landmarks selecionadas.
-        - Verifica posições relativas de ombros, pulsos e nariz.
-        - Classifica as atividades em:
+        - Detecta as atividades:
             - "Mão Esquerda Levantada"
             - "Mão Direita Levantada"
             - "Deitado"
+            - "Sentado"
             - "Movimento Anômalo" (padrão).
         """
-        # Obtém landmarks relevantes.
+        # Obtém landmarks relevantes
         left_shoulder = landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_SHOULDER]
         right_shoulder = landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_SHOULDER]
         left_wrist = landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_WRIST]
         right_wrist = landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_WRIST]
         nose = landmarks.landmark[self.mp_pose.PoseLandmark.NOSE]
+        left_hip = landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_HIP]
+        right_hip = landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_HIP]
+        left_knee = landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_KNEE]
+        right_knee = landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_KNEE]
+        left_ankle = landmarks.landmark[self.mp_pose.PoseLandmark.LEFT_ANKLE]
+        right_ankle = landmarks.landmark[self.mp_pose.PoseLandmark.RIGHT_ANKLE]
 
-        # Checa se todas as landmarks estão visíveis antes de processar.
-        if (left_shoulder.visibility > 0.5 and right_shoulder.visibility > 0.5 and
-                left_wrist.visibility > 0.5 and right_wrist.visibility > 0.5 and
-                nose.visibility > 0.5):
-
-            # Calcula a altura média dos ombros.
+        # Checa visibilidade geral antes de analisar
+        if all(lm.visibility > 0.5 for lm in [left_shoulder, right_shoulder, left_wrist, right_wrist, nose]):
+            # Calcula a altura média dos ombros
             shoulder_height = (left_shoulder.y + right_shoulder.y) / 2
 
-            # Verifica se alguma das mãos está acima da linha dos ombros.
+            # Verifica se alguma das mãos está acima da linha dos ombros
             if left_wrist.y < shoulder_height:
                 return "Mao E. Levantada"
             if right_wrist.y < shoulder_height:
                 return "Mao D. Levantada"
 
-            # Determina se a pessoa está deitada com base na proximidade do nariz e dos ombros.
+            # Determina se a pessoa está deitada com base na proximidade do nariz e dos ombros
             if abs(nose.y - shoulder_height) < 0.05:
                 return "Deitado"
 
-        # Retorna "Movimento Anômalo" se nenhuma atividade específica for detectada.
+        # Checa visibilidade dos membros inferiores antes de avaliar "Sentado"
+        if all(lm.visibility > 0.5 for lm in [left_shoulder, right_shoulder, left_hip, right_hip, left_knee, right_knee, left_ankle, right_ankle]):
+            # Calcula a altura média dos quadris e ombros
+            hip_height = (left_hip.y + right_hip.y) / 2
+            shoulder_height = (left_shoulder.y + right_shoulder.y) / 2
+            # Avalia a posição dos membros inferiores para identificar "Sentado"
+            if (hip_height > shoulder_height and  # Quadris abaixo dos ombros
+                    abs(left_knee.y - left_ankle.y) > 0.1 and abs(
+                        right_knee.y - right_ankle.y) > 0.1):  # Joelho em ângulo
+                return "Sentado"
+
+        # Retorna "Movimento Anômalo" se nenhuma atividade específica for detectada
         return "Mov. Anomalo"
 
 
