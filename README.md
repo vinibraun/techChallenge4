@@ -11,23 +11,22 @@ Este algoritmo objetivou implementar reconhecimento facial e análise de ativida
 - **Análise de expressões faciais**: Analisa expressões como "feliz", "triste", etc., e contabiliza a frequência de cada uma ao longo do vídeo.
 - **Reconhecimento de atividades motoras**: Detecta atividades físicas, como "sentado", "deitado", "levantando a mão".
 - **Resumo de atividades**: Armazena um resumo com a contagem de cada expressão e atividade detectada.
-- **Geração de relatório**: Salva um relatório em `resumo_atividades.txt`, detalhando:
+- **Geração de relatório**: Salva um relatório em `activity_summary.json`, detalhando:
   - Total de frames processados
   - Frequência de cada expressão e atividade detectada
-  - A expressão facial mais frequente no vídeo
 
 ## Estrutura do Projeto
 
 - **main.py**: Arquivo principal que processa o vídeo e exibe o reconhecimento facial e de atividades em tempo real.
-- **utils.py**: Contém as classes `FaceRecognition`, `ActivityRecognition`, e `summarize_activities`, responsáveis pela detecção e análise.
+- **utils.py**: Contém as classes `FaceRecognition`, `ActivityRecognition`, e a função final `summarize_activities`, responsáveis pela detecção, análise e montagem do resumo.
 - **video/videoFIAP.mp4**: Vídeo de exemplo para execução do projeto (substituível por qualquer outro vídeo).
-- **resumo_atividades.txt**: Arquivo gerado ao final da execução, contendo o resumo das atividades e expressões detectadas.
+- **activity_summary.json**: Arquivo gerado ao final da execução, contendo o resumo das atividades e expressões detectadas.
 
 ## Tecnologias Utilizadas
 
 - **Python**: Linguagem principal do projeto.
 - **OpenCV**: Para manipulação de vídeo e processamento de imagens.
-- **MediaPipe**: Para detecção de poses e reconhecimento de atividades corporais.
+- **MediaPipe**: Para detecção rostos, poses e reconhecimento de atividades corporais.
 - **DeepFace**: Para análise de expressões faciais.
 
 ## Dificuldades Encontradas
