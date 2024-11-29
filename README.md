@@ -1,6 +1,6 @@
 # Projeto de Reconhecimento Facial e de Atividades em Vídeo
 
-Este projeto realiza **reconhecimento facial** e **detecção de atividades** a partir de um vídeo, utilizando as bibliotecas **OpenCV**, **MediaPipe** e **DeepFace**. Ele detecta rostos, identifica expressões faciais e reconhece atividades motoras. No final da execução, um resumo das atividades e a expressão facial mais frequente são salvos em um arquivo `.txt`.
+Este projeto realiza **reconhecimento facial** e **detecção de atividades** a partir de um vídeo, utilizando as bibliotecas **OpenCV**, **MediaPipe** e **DeepFace**. Ele detecta rostos, identifica expressões faciais e reconhece atividades motoras. No final da execução, um resumo das atividades e a expressão facial mais frequente são salvos em um arquivo `JSON`.
 
 ## Objetivo principal
 Este algoritmo objetivou implementar reconhecimento facial e análise de atividades em vídeo, priorizando precisão e velocidade de execução para processamento em tempo real.
