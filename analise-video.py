@@ -1,6 +1,6 @@
 import cv2
 import json
-from utils import FaceRecognition, ActivityRecognition, summarize_activities
+from utils import FaceRecognition, ActivityRecognition
 
 def main():
     # Inicializa o reconhecimento facial e de atividades

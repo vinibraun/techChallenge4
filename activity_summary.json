@@ -1,13 +1,19 @@
 {
-    "frame_count": 247,
+    "frame_count": 3326,
     "activity_summary": {
-        "Neutro": 90,
-        "Triste": 115,
-        "Mov. Anomalo": 11,
-        "Medo": 18,
-        "Feliz": 8,
-        "E. Desconhecida": 96,
-        "Inativo": 9,
-        "Mao E. Levantada": 1
+        "Neutro": 187,
+        "Triste": 223,
+        "Mov. Anomalo": 111,
+        "Medo": 69,
+        "Feliz": 100,
+        "E. Desconhecida": 99,
+        "Inativo": 85,
+        "Mao E. Levantada": 27,
+        "Bravo": 37,
+        "Mao D. Levantada": 19,
+        "Surpreso": 25,
+        "Deitado": 8,
+        "Nojo": 1,
+        "Sentado": 4
     }
 }

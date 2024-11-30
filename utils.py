@@ -150,23 +150,3 @@ class ActivityRecognition:
 
         # Retorna "Movimento Anômalo" se nenhuma atividade específica for detectada
         return "Mov. Anomalo"
-
-
-def summarize_activities(activities):
-    """
-    Gera um resumo das atividades detectadas.
-    - Recebe uma lista de atividades detectadas.
-    - Conta a ocorrência de cada atividade e retorna um dicionário de resumo.
-    """
-    summary = {}
-    last_activity = None  # Armazena a última atividade detectada.
-
-    for activity in activities:
-        # Verifica se a atividade mudou em relação à última.
-        if activity != last_activity:
-            if activity not in summary:
-                summary[activity] = 0
-            summary[activity] += 1  # Incrementa a contagem.
-            last_activity = activity  # Atualiza a última atividade.
-
-    return summary
