@@ -18,7 +18,7 @@ Este algoritmo objetivou implementar reconhecimento facial e análise de ativida
 ## Estrutura do Projeto
 
 - **main.py**: Arquivo principal que processa o vídeo e exibe o reconhecimento facial e de atividades em tempo real.
-- **utils.py**: Contém as classes `FaceRecognition`, `ActivityRecognition`, e a função final `summarize_activities`, responsáveis pela detecção, análise e montagem do resumo.
+- **utils.py**: Contém as classes `FaceRecognition`, `ActivityRecognition`, responsáveis pela detecção e análise no vídeo.
 - **video/videoFIAP.mp4**: Vídeo de exemplo para execução do projeto (substituível por qualquer outro vídeo).
 - **activity_summary.json**: Arquivo gerado ao final da execução, contendo o resumo das atividades e expressões detectadas.
 
