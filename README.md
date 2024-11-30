@@ -33,7 +33,7 @@ Este algoritmo objetivou implementar reconhecimento facial e análise de ativida
 
 Durante o desenvolvimento deste projeto, algumas dificuldades surgiram:
 
-- **Desempenho e Otimização**: Processar vídeos em alta resolução e com muitos frames (como o exemplo de 35GB e 3000+ frames) causou problemas de desempenho, resultando em lentidão e travamentos. A necessidade de equilibrar precisão na detecção com velocidade de processamento foi um desafio.
+- **Desempenho e Otimização**: Processar vídeos em alta resolução e com muitos frames (como o exemplo de 35MB e 3000+ frames) causou problemas de desempenho, resultando em lentidão e travamentos. A necessidade de equilibrar precisão na detecção com velocidade de processamento foi um desafio.
 
 - **Precisão na Detecção de Expressões e Atividades**: As detecções de expressões faciais e atividades motoras nem sempre foram precisas, especialmente em casos onde o rosto ou corpo não estavam totalmente visíveis ou iluminados. O ajuste de parâmetros de detecção e o uso de modelos pré-treinados foram necessários para melhorar a confiabilidade.
 
