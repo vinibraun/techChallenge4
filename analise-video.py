@@ -1,11 +1,12 @@
 import cv2
 import json
-from utils import FaceRecognition, ActivityRecognition
+from utils import FaceRecognition, ActivityRecognition, HandDetection
 
 def main():
     # Inicializa o reconhecimento facial e de atividades
     face_recognition = FaceRecognition()
     activity_recognition = ActivityRecognition()
+    hand_detection = HandDetection()
 
     # Variáveis para armazenar contagens e última atividade detectada
     activity_summary = {}
@@ -53,12 +54,27 @@ def main():
         # Detecta atividades motoras
         activity = activity_recognition.detect_activity(frame)
 
+
+
         # Incrementa a contagem apenas se a atividade atual for diferente da última detectada
         if activity != last_activity:
             if activity not in activity_summary:
                 activity_summary[activity] = 0
             activity_summary[activity] += 1
             last_activity = activity  # Atualiza a última atividade
+
+        # Detecta mãos no frame
+        hand_landmarks = hand_detection.detect_hands(frame)
+
+        # Desenha as mãos detectadas no frame
+        hand_detection.draw_hands(frame, hand_landmarks)
+
+        # Verifica se há um cumprimento
+        if hand_detection.detect_handshake(hand_landmarks):
+            # Incrementa o resumo de atividades
+            if "Cumprimento" not in activity_summary:
+                activity_summary["Cumprimento"] = 0
+            activity_summary["Cumprimento"] += 1
 
         # Exibe o resumo de atividades no canto superior esquerdo do frame
         y_offset = 30

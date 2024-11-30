@@ -150,3 +150,65 @@ class ActivityRecognition:
 
         # Retorna "Movimento Anômalo" se nenhuma atividade específica for detectada
         return "Mov. Anomalo"
+
+class HandDetection:
+    def __init__(self, max_hands=2, detection_confidence=0.3, tracking_confidence=0.3):
+        self.hands = mp.solutions.hands.Hands(
+            max_num_hands=max_hands,
+            min_detection_confidence=detection_confidence,
+            min_tracking_confidence=tracking_confidence
+        )
+        self.mp_drawing = mp.solutions.drawing_utils
+
+    def detect_hands(self, frame):
+        # Processa o frame para detectar mãos
+        results = self.hands.process(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
+        hand_landmarks = results.multi_hand_landmarks
+
+        if hand_landmarks and len(hand_landmarks) > 1:
+            # Filtrar duplicações com base na distância entre as mãos
+            filtered_landmarks = []
+            centers = []  # Para armazenar os centros das mãos detectadas
+
+            for landmarks in hand_landmarks:
+                # Calcula o centro da mão
+                x_coords = [lm.x for lm in landmarks.landmark]
+                y_coords = [lm.y for lm in landmarks.landmark]
+                center_x, center_y = sum(x_coords) / len(x_coords), sum(y_coords) / len(y_coords)
+
+                # Verifica se o centro está distante o suficiente das mãos já adicionadas
+                if all((abs(center_x - cx) > 0.05 or abs(center_y - cy) > 0.05) for cx, cy in centers):
+                    filtered_landmarks.append(landmarks)
+                    centers.append((center_x, center_y))
+
+            return filtered_landmarks
+
+        return hand_landmarks if hand_landmarks else []
+
+    def draw_hands(self, frame, hand_landmarks):
+        """
+        Desenha as landmarks das mãos detectadas no frame.
+        """
+        for landmarks in hand_landmarks:
+            self.mp_drawing.draw_landmarks(
+                frame, landmarks, mp.solutions.hands.HAND_CONNECTIONS,
+                self.mp_drawing.DrawingSpec(color=(0, 255, 0), thickness=2, circle_radius=2),
+                self.mp_drawing.DrawingSpec(color=(0, 0, 255), thickness=2)
+            )
+
+    def detect_handshake(self, hand_landmarks):
+        """
+        Detecta se duas mãos estão próximas o suficiente para serem consideradas um cumprimento.
+        """
+        if len(hand_landmarks) < 2:
+            return False  # Precisa de duas mãos para o cumprimento
+
+        # Obtém as posições das palmas (landmark 0) de ambas as mãos
+        palm1 = hand_landmarks[0].landmark[0]
+        palm2 = hand_landmarks[1].landmark[0]
+
+        # Calcula a distância entre as palmas
+        distance = ((palm1.x - palm2.x) ** 2 + (palm1.y - palm2.y) ** 2) ** 0.5
+
+        # Considera um cumprimento se a distância for menor que um limite
+        return distance < 0.1  # Ajuste o valor com base na escala do frame
